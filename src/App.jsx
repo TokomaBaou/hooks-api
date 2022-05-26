@@ -1,10 +1,17 @@
 import "./styles.css";
+import { useState } from "react";
 
-export default function App() {
+export const App = () => {
+  const [data, setData] = useState({ hits: [] });
+
   return (
     <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
+      Hooks API
+      {data.hits.map((item) => (
+        <li key={item.objectID}>
+          <a href={item.url}>{item.title}</a>
+        </li>
+      ))}
     </div>
   );
-}
+};
