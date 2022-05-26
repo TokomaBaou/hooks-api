@@ -6,12 +6,16 @@ export const App = () => {
   const [data, setData] = useState({ hits: [] });
 
   /**データ取得用の副作用フックの実装 */
-  useEffect(async () => {
-    const result = await axios(
-      "http://hn.algolia.com/api/v1/search?query=redux"
-    );
-    setData(result.data);
-  });
+  /**useEffect関数副作用内でasync関数を使うことを回避する */
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        "http://hn.algolia.com/api/v1/search?query=redux"
+      );
+      setData(result.data);
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="App">
